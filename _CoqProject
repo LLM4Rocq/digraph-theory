@@ -15,6 +15,7 @@ theories/core/order.v
 
 # --- invariants ---
 theories/invariants/omegabar.v
+theories/invariants/strong.v
 theories/invariants/critical.v
 theories/invariants/domination.v
 

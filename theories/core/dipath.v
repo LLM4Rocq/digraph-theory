@@ -63,6 +63,56 @@ have U : uniq ((x :: s) ++ (y :: t)) by rewrite cat_uniq us ut dis.
 by move: U; rewrite cat_cons cons_uniq.
 Qed.
 
+(** Continuation form: append a path that starts AT the endpoint. *)
+Lemma cat_dipath_cont x s t :
+  dipath x s -> dipath (last x s) t -> ~~ has (mem (x :: s)) t ->
+  dipath x (s ++ t).
+Proof.
+case/andP=> ps us /andP[pt /= /andP[_ ut]] dis.
+rewrite /dipath cat_path ps pt /=.
+move: us => /= /andP[xNs us].
+rewrite mem_cat negb_or xNs /=.
+have xNt : x \notin t.
+  apply: contra dis => xt; apply/hasP.
+  by exists x => //=; rewrite mem_head.
+rewrite xNt /= cat_uniq us ut andbT /=.
+apply: contra dis => /hasP[w wt wsM].
+by apply/hasP; exists w => //=; rewrite inE wsM orbT.
+Qed.
+
+Lemma dipath_cons x y t : dipath x (y :: t) -> (x --> y) /\ dipath y t.
+Proof.
+case/andP=> /= /andP[axy pt] /and3P[_ yNt ut].
+by split; rewrite // /dipath pt /= yNt ut.
+Qed.
+
+Lemma dipath_drop x s j : dipath x s -> j < size s ->
+  dipath (nth x s j) (drop j.+1 s).
+Proof.
+case/andP=> ps us jlt.
+have lt : last x (take j.+1 s) = nth x s j.
+  by rewrite (take_nth x jlt) last_rcons.
+move: ps; rewrite -{1}(cat_take_drop j.+1 s) cat_path lt => /andP[_ pd].
+rewrite /dipath pd /=.
+move: us => /= /andP[_ us].
+move: (us); rewrite -{1}(cat_take_drop j.+1 s) cat_uniq => /and3P[_ nh ud].
+rewrite ud andbT.
+apply: contra nh => nthd; apply/hasP.
+exists (nth x s j) => //=.
+by rewrite (take_nth x jlt) mem_rcons mem_head.
+Qed.
+
+Lemma last_take x s j : j < size s -> last x (take j.+1 s) = nth x s j.
+Proof. by move=> jlt; rewrite (take_nth x jlt) last_rcons. Qed.
+
+Lemma last_drop x s j : j < size s ->
+  last (nth x s j) (drop j.+1 s) = last x s.
+Proof.
+move=> jlt.
+rewrite -{3}(cat_take_drop j.+1 s) last_cat.
+by rewrite (last_take x jlt).
+Qed.
+
 Lemma dipath_take x s n : dipath x s -> dipath x (take n s).
 Proof.
 case/andP=> ps us; rewrite /dipath.
@@ -177,14 +227,23 @@ Proof. by case/and3P=> _ cyc _; exact: prev_cycle. Qed.
 (** Unrolling: a cycle yields a path from any of its vertices through all
     of it, ending at the predecessor (with the closing arc back). *)
 Lemma dicycle_unroll z c : dicycle c -> z \in c ->
-  exists s, [/\ dipath z s, size s = (size c).-1, (z :: s) =i c
-              & last z s --> z].
+  exists s, [/\ dipath z s, size s = (size c).-1, (z :: s) =i c,
+              last z s --> z & last z s = prev c z].
 Proof.
 move=> dc zc.
 case/rot_to: (zc) => i s rotE.
 have dc' : dicycle (z :: s) by rewrite -rotE dicycle_rot.
 case/and3P: dc' => _ cyc un.
 move: cyc; rewrite /= rcons_path => /andP[ps az].
+have uc : uniq c by case/and3P: dc.
+have lastE : last z s = prev c z.
+  rewrite -(prev_rot i uc) rotE.
+  have zNs : z \notin s by case/andP: un.
+  have helper t y : z \notin t -> prev_at z z y t = last y t.
+    elim: t y => [|h t IH] y /=; first by rewrite eqxx.
+    rewrite inE negb_or => /andP[zDh zNt].
+    by rewrite (negbTE zDh) IH.
+  by rewrite /prev helper.
 exists s; split=> //.
 - by rewrite /dipath ps.
 - by rewrite -(size_rot i c) rotE.
