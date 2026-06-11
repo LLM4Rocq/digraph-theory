@@ -135,3 +135,20 @@ Lemma AC_vertex_transitive : vertex_transitiveb AC.
 Proof. exact: cayley_vertex_transitive. Qed.
 
 End AC.
+
+(** ** C₃ is vertex-transitive
+
+    [C3]'s arc relation [v == u + 1] over 'Z_3 is translation-invariant,
+    so the translations x ↦ x + t are automorphisms and act transitively
+    (the Cayley-translation argument in miniature; G3 of
+    docs/k34_dossier.md — feeds the k = 4 criticality reduction). *)
+
+Lemma C3_vertex_transitive : vertex_transitiveb (C3 : diGraphType).
+Proof.
+apply/vertex_transitivebP=> u v.
+have tinj : injective (fun x : C3 => (((x : 'Z_3) + (v - u) : 'Z_3) : C3)).
+  exact: addIr.
+exists (perm tinj); last by rewrite permE /= addrC subrK.
+rewrite dgautE; apply/autbP=> x y; rewrite !permE !arcC3E /=.
+by rewrite addrAC (inj_eq (addIr _)).
+Qed.

@@ -36,6 +36,29 @@ Proof.
 by rewrite card_sig (@eq_card _ _ (mem [set~ v])) ?cardsC1 // => x; rewrite !inE.
 Qed.
 
+(** ** Proper subtournaments of critical tournaments
+
+    In a k-ω̄-critical tournament every *proper* subtournament has
+    ω̄ ≤ k − 1: it omits some vertex, hence embeds into that vertex's
+    deletion (the Question-5.9-failure mechanism, stated once; G1 of
+    docs/k34_dossier.md). *)
+
+Lemma kcritical_proper_sub (k : nat) (T : tournament) (S : {set T}) :
+  kcritical k T -> S != [set: T] -> (ω̄(sub_tournament S) <= k.-1)%N.
+Proof.
+case/kcriticalP=> _ dels Sproper.
+have /subsetPn[v _ vNS] : ~~ ([set: T] \subset S).
+  by move: Sproper; apply: contraNN => sub; rewrite eqEsubset sub subsetT.
+have memf (x : sub_tournament S) : val x \in [set~ v].
+  by rewrite !inE; apply: contraNneq vNS => <-; exact: (valP x).
+pose f (x : sub_tournament S) : del_tournament v := Sub (val x) (memf x).
+have f_inj : injective f.
+  by move=> x y /(congr1 val); rewrite !SubK => /val_inj.
+have f_arc (x y : sub_tournament S) : (f x --> f y) = (x --> y).
+  by rewrite !sub_arcE !SubK.
+by rewrite -(dels v); exact: (omegabar_embed f_inj f_arc).
+Qed.
+
 (** ** C3 is 2-ω̄-critical *)
 
 Lemma C3_kcritical2 : kcritical 2 (C3 : tournament).

@@ -32,6 +32,7 @@ theories/invariants_advanced/substitution.v
 # --- the k=5 application (M4+) ---
 theories/applications/k5/acn_arc_facts.v
 theories/applications/k5/acn_base.v
+theories/applications/acn_bands.v
 theories/applications/k5/k5_lower.v
 theories/applications/k5/in_neighbourhood.v
 theories/applications/k5/cells.v
@@ -43,3 +44,6 @@ theories/applications/k5/main.v
 # --- the CK3 application (M7+) ---
 theories/applications/ck3/lemma7.v
 theories/applications/ck3/ck3_main.v
+
+# --- the k=4 application (M14+) ---
+theories/applications/k4/k4_lower.v
