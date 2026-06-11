@@ -32,7 +32,7 @@ jobs:
             endGroup
           before_script: |
             startGroup "Workaround permission issue"
-              sudo chown -R coq:coq .
+              sudo chown -R "$(id -u):$(id -g)" .
             endGroup
           script: |
             startGroup "Build"
