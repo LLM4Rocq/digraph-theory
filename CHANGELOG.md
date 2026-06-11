@@ -5,6 +5,51 @@ The format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added — CK3 M8–M12 (the δ = 3 path theorem), 2026-06-11
+- **`applications/ck3/ck3_main.v` — the theorem (`ck_conj1_delta3`): every
+  nonempty oriented digraph with min out-degree ≥ 3 contains a directed
+  simple path of length 6** — the δ = 3 case of Cheng–Keevash Conjecture 1
+  (Thomassé's path conjecture, oriented version), formalizing
+  `docs/ck3_dossier.md`. With the unfolded exists-a-path form and the
+  `2*3 ≤ ℓ` alias. The endgame (E0–E5): ℓ ≤ 4 dies on the average bound;
+  at ℓ = 5 the kernel forces |S| = 3, all inner out-degrees 1, a = 1,
+  v₅ ∈ S, the full fan-out of S onto C∖S, and σ-closure under the cycle
+  predecessor swallows all five cycle vertices.
+- `applications/ck3/lemma7.v` — **Cheng–Keevash Lemma 7, uniform in δ**
+  (`lemma7`), with all §4 proof internals formalized: the max-cycle-bound
+  path choice, a ≥ 1, a ≤ ℓ−δ, Claim 11 (the end-maximal complement path,
+  the antiparallel distance-1 exclusion, the two-disjoint-cycles
+  contradiction), Claim 12 (cycle-bound minimality), B⁻ via MathComp
+  `prev`, and the geometric count — confirming the arc-convention headline
+  δ⁺(S) ≥ 2δ − ℓ (the paper's "+1" is the vertex/arc conflation).
+  Corollaries: **`ck_theorem4_oriented`** (ℓ ≥ 2δ − (δ−1)./2, sharper than
+  the paper's ⌈3δ/2⌉ for even δ) and **`ck_conj1_delta2`** (Conjecture 1
+  at δ = 2). Packaged as `kernel_full` for the endgame.
+- `invariants/strong.v` — strong connectivity (`strongb`), forward-closed
+  sets, the **sink-SCC trick** (minimal reachable set; no SCC theory),
+  cut-crossing, **K-a1** (`maxpath_no_loopback`), **K-10**
+  (`disjoint_cycles_path`: two disjoint cycles force ℓ ≥ |C₁|+|C₂|−1) and
+  the composed **reduction** (oriented, δ⁺ ≥ k ⟹ induced strong
+  k-outregular H with ℓ(H) ≤ ℓ(D), |H| ≥ 2k+1).
+- `core/dipath.v` — directed simple paths over MathComp `path`/`cycle`
+  (D8 fallback), `ell` with witness/maximum/monotonicity, Lemma A
+  (endpoint closure), end-maximal paths (K-Ext), dicycles as seqs with
+  `next`/`prev` arcs, unrolling, suffix-cycle extraction, and the
+  cat/take/drop surgery kit.
+- `core/oriented.v` + tournament refactor — the **`Oriented`** structure
+  (`DiGraph ≤ Oriented ≤ Tournament`, D9; existing tournament instances
+  acquire it via the `DiGraph_IsTournament` factory), digraph-level
+  out-degrees, the O1 counting/average bounds, the O2 out-selection
+  (`outsel`, `ksel`).
+- All general infrastructure stated per Decision D12 (generality first);
+  every CK3 exit theorem `Print Assumptions`-clean (7/7).
+
+### Added — CK3 M7 (dossier + oracle), 2026-06-11
+- `docs/ck3_dossier.md`, `paper/ck3_excerpts.md`,
+  `scripts/ck3_oracle.py` + `test_ck3_oracle.py` (52 tests). Oracle
+  finding: paper Claim 6 is false as stated (ℓ(D_{1,2}) = 2δ+1, not 2δ);
+  unused in our chain (dossier landmine 5).
+
 ### Added — M6 (upper bounds + assembly: the k = 5 theorem), 2026-06-11
 - `applications/k5/in_neighbourhood.v` — **Lemma H17**: for x in the Hi band
   and y in the Lo band, the common in-neighbourhood N⁻(x) ∩ N⁻(y) lies in a

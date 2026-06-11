@@ -61,6 +61,18 @@ to `constructions/product.v`), **`T5_kcritical5`** (5-ω̄-critical, order
 **`question_5_9_fails_at_k5`** (every proper subtournament has `ω̄ ≤ 4`, so
 no bound `ℓ(5)` exists). All exit theorems `Print Assumptions`-clean.
 
+**CK3 (M7–M12) — done (2026-06-11): the δ = 3 path theorem.**
+`ck_conj1_delta3`: every nonempty oriented digraph with minimum out-degree
+≥ 3 contains a directed simple path of length 6 — the δ = 3 case of
+Cheng–Keevash Conjecture 1 (Thomassé's path conjecture), formalizing the
+hand proof of the companion search project. On the way the library gained
+the `Oriented` structure, directed simple paths and ℓ(D) (`core/dipath`),
+strong connectivity with the sink-SCC reduction (`invariants/strong`),
+and — uniform in δ — **Cheng–Keevash Lemma 7** with its corollaries
+`ck_theorem4_oriented` (ℓ ≥ 2δ − ⌊(δ−1)/2⌋) and the δ = 2 case
+(`applications/ck3/`). All axiom-free; plan in `docs/PLAN_CK3.md`,
+self-contained proof dossier in `docs/ck3_dossier.md`.
+
 ## What's here / coming
 
 | Layer | Module(s) | Milestone |
@@ -70,7 +82,8 @@ no bound `ℓ(5)` exists). All exit theorems `Print Assumptions`-clean.
 | Invariants | `invariants/omegabar` ✅, `…/critical` ✅, `…/domination` ✅, `…/dichromatic` | M1–M3 |
 | Constructions | `constructions/{product,cayley,circulant,automorphism}` ✅ | M2 |
 | General theorems | `substitution` ✅, `transitive` ✅ | M3 |
-| Application | `applications/k5/{acn_arc_facts,acn_base,k5_lower,in_neighbourhood,cells,obstructions,coverage,k5_upper,main}` ✅ | M4–M6 |
+| Application (k=5) | `applications/k5/{acn_arc_facts,acn_base,k5_lower,in_neighbourhood,cells,obstructions,coverage,k5_upper,main}` ✅ | M4–M6 |
+| Application (CK3) | `applications/ck3/{lemma7,ck3_main}` ✅ + `core/{oriented,dipath}` ✅, `invariants/strong` ✅ | M7–M12 |
 
 ## Build
 

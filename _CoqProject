@@ -42,3 +42,4 @@ theories/applications/k5/main.v
 
 # --- the CK3 application (M7+) ---
 theories/applications/ck3/lemma7.v
+theories/applications/ck3/ck3_main.v

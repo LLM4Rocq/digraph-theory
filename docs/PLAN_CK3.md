@@ -159,21 +159,20 @@ sub-digraphs on `{x | P x}`, `N_out`/degree counting on tournaments,
   count, lemma7's conclusion, and the final theorem on all n ≤ 9 instances
   the sampler reaches. *Exit: dossier reviewed; oracle green; D8–D11
   signed off.*
-- **M8 — Oriented + degrees.** `core/oriented.v` (§3.1). *Exit:*
+- **M8 — Oriented + degrees. ✅ Done (2026-06-11).** `core/oriented.v` (§3.1). *Exit:*
   `oriented_avg_bound`, `outregular_reduction`, tournament-is-oriented
   instance; axiom-free; oracle cross-check of the average bound.
-- **M9 — Dipaths + ℓ.** `core/dipath.v` (§3.2). *Exit:* `ell` API
+- **M9 — Dipaths + ℓ. ✅ Done (2026-06-11)** (D8 fallback exercised: own seq layer over MathComp path/cycle — graph-theory's pathp/upath layer sits below extremal-path surgery needs). `core/dipath.v` (§3.2). *Exit:* `ell` API
   (monotonicity, witness), `lemma_A`, `endpoint_cycle`, surgery kit
   lemmas, all oracle-checked on C3/TT_n/AC_n (ℓ(TTₙ) = n−1,
   ℓ(C3) = 2, ℓ known for small ACₙ).
-- **M10 — Strong connectivity.** `invariants/strong.v` (§3.3). *Exit:*
+- **M10 — Strong connectivity. ✅ Done (2026-06-11).** `invariants/strong.v` (§3.3). *Exit:*
   `sink_scc_reduction` producing H with the four properties; cut-crossing
   lemma.
-- **M11 — The kernel (the hard milestone, budget like k5's
-  obstructions.v).** `applications/ck3/lemma7.v` (§3.4). *Exit:* `lemma7`
+- **M11 — The kernel. ✅ Done (2026-06-11).** `applications/ck3/lemma7.v` (§3.4). *Exit:* `lemma7`
   general in δ, plus `ck_theorem4_oriented`, `ck_conj1_delta2`;
   axiom-free.
-- **M12 — Endgame + wrap-up.** `applications/ck3/{endgame,main}.v`
+- **M12 — Endgame + wrap-up. ✅ Done (2026-06-11). PROJECT COMPLETE; all 7 exit theorems axiom-free.** (File named ck3_main.v to avoid the k5 main.v module clash.) `applications/ck3/{endgame,main}.v`
   (§3.5). *Exit:* `ck_conj1_delta3`; full axiom audit; CHANGELOG/README/
   DESIGN updates; CI green. **Done.**
 
