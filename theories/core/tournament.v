@@ -18,19 +18,43 @@
 
 From HB Require Import structures.
 From mathcomp Require Import all_boot all_fingroup all_algebra.
-From Digraph Require Import prelude digraph.
+From Digraph Require Import prelude digraph oriented.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
 Unset Printing Implicit Defensive.
 
-HB.mixin Record DiGraph_IsTournament V of DiGraph V := {
+(** Tournaments extend ORIENTED digraphs by totality (CK3 refactor, D9):
+    [DiGraph ≤ Oriented ≤ Tournament]. The original all-in-one interface is
+    kept as the [DiGraph_IsTournament] factory, so instance builders are
+    unchanged and every tournament instance is an oriented digraph. *)
+
+HB.mixin Record Oriented_IsTournament V of Oriented V := {
+  arc_total : forall u v : V, (u != v) = (arc u v) (+) (arc v u)
+}.
+
+#[short(type="tournament")]
+HB.structure Definition Tournament :=
+  { V of Oriented V & Oriented_IsTournament V }.
+
+HB.factory Record DiGraph_IsTournament V of DiGraph V := {
   arc_irrefl : irreflexive (arc : rel V);
   arc_total  : forall u v : V, (u != v) = (arc u v) (+) (arc v u)
 }.
 
-#[short(type="tournament")]
-HB.structure Definition Tournament := { V of DiGraph V & DiGraph_IsTournament V }.
+HB.builders Context V of DiGraph_IsTournament V.
+
+Fact asymm (u v : V) : arc u v -> arc v u = false.
+Proof.
+move=> auv.
+have uDv : u != v by apply: contraTneq auv => ->; rewrite arc_irrefl.
+by have := arc_total u v; rewrite uDv auv /=; case: (arc v u).
+Qed.
+
+HB.instance Definition _ := DiGraph_IsOriented.Build V arc_irrefl asymm.
+HB.instance Definition _ := Oriented_IsTournament.Build V arc_total.
+
+HB.end.
 
 (** ** Basic arc calculus *)
 
@@ -131,15 +155,14 @@ End TournamentTheory.
 Section SubTournament.
 Variables (T : tournament) (P : pred T).
 
-Fact sub_arc_irrefl : irreflexive (arc : rel {x : T | P x}).
-Proof. by move=> u; rewrite sub_arcE arcxx. Qed.
-
+(** The subtype already carries the [Oriented] structure (core/oriented.v);
+    only totality is added here. *)
 Fact sub_arc_total (u v : {x : T | P x}) :
   (u != v) = (arc u v) (+) (arc v u).
 Proof. by rewrite -val_eqE !sub_arcE arc_total. Qed.
 
 HB.instance Definition _ :=
-  DiGraph_IsTournament.Build {x | P x} sub_arc_irrefl sub_arc_total.
+  Oriented_IsTournament.Build {x | P x} sub_arc_total.
 
 End SubTournament.
 

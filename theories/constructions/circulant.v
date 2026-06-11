@@ -19,7 +19,7 @@
 
 From HB Require Import structures.
 From mathcomp Require Import all_boot all_fingroup all_algebra.
-From Digraph Require Import prelude digraph tournament automorphism cayley.
+From Digraph Require Import prelude digraph oriented tournament automorphism cayley.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
