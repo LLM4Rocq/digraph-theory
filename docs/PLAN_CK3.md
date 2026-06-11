@@ -141,7 +141,14 @@ sub-digraphs on `{x | P x}`, `N_out`/degree counting on tournaments,
 
 ## 4. Milestones
 
-- **M7 — Dossier + oracle.** Expand `k3_hand_proof.md` into a
+- **M7 — Dossier + oracle. ✅ Done (2026-06-11).** Delivered:
+  `docs/ck3_dossier.md` (items O1–O2, S1–S2, R, M-ℓ, K-A/Ext/D/a1/10/11/
+  AB/B⁻/12/count, K-7, T4, C2, E0–E5, MAIN; landmines 1–5 resolved —
+  including a NEW one found by the oracle: paper Claim 6 is false as
+  stated, ℓ(D_{1,2}) = 2δ+1 not 2δ; unused in our chain), K-12 upgraded
+  to an any-digraph statement, `paper/ck3_excerpts.md`,
+  `scripts/ck3_oracle.py` + `test_ck3_oracle.py` (52 tests green).
+  Original scope: Expand `k3_hand_proof.md` into a
   self-contained dossier (`docs/ck3_dossier.md` here): every claim of §3–§4
   of the paper restated and re-proved with our arc-length conventions and
   named vertices, the two known landmines resolved on paper (the |P|
