@@ -9,6 +9,7 @@ theories/foundations/interop_graph_theory.v
 # --- core ---
 theories/core/digraph.v
 theories/core/oriented.v
+theories/core/dipath.v
 theories/core/tournament.v
 theories/core/order.v
 
