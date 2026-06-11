@@ -1,0 +1,38 @@
+-R theories Digraph
+
+-arg -w -arg -notation-overridden,-ambiguous-paths
+
+# --- foundations ---
+theories/foundations/prelude.v
+theories/foundations/interop_graph_theory.v
+
+# --- core ---
+theories/core/digraph.v
+theories/core/tournament.v
+theories/core/order.v
+
+# --- invariants ---
+theories/invariants/omegabar.v
+theories/invariants/critical.v
+theories/invariants/domination.v
+
+# --- constructions ---
+theories/constructions/automorphism.v
+theories/constructions/product.v
+theories/constructions/cayley.v
+theories/constructions/circulant.v
+
+# --- advanced invariants (the marquee general theorems, M3) ---
+theories/invariants_advanced/transitive.v
+theories/invariants_advanced/substitution.v
+
+# --- the k=5 application (M4+) ---
+theories/applications/k5/acn_arc_facts.v
+theories/applications/k5/acn_base.v
+theories/applications/k5/k5_lower.v
+theories/applications/k5/in_neighbourhood.v
+theories/applications/k5/cells.v
+theories/applications/k5/obstructions.v
+theories/applications/k5/coverage.v
+theories/applications/k5/k5_upper.v
+theories/applications/k5/main.v

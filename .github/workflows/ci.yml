@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Matches the local dev switch `digraph` (Rocq 9.1.1 + MathComp 2.5.0);
+        # tag existence verified on Docker Hub (see docs/DESIGN.md §3).
+        image:
+          - 'mathcomp/mathcomp:2.5.0-rocq-prover-9.1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: coq-community/docker-coq-action@v1
+        with:
+          custom_image: ${{ matrix.image }}
+          # mathcomp-classical is needed by the prelude, coq-graph-theory by the
+          # interop layer; both idempotent if the image already ships them.
+          before_script: |
+            startGroup "Install dependencies"
+              opam install -y rocq-mathcomp-classical coq-graph-theory
+            endGroup
+          script: |
+            startGroup "Build"
+              make -j2
+            endGroup
