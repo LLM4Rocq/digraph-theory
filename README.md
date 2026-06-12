@@ -61,6 +61,23 @@ to `constructions/product.v`), **`T5_kcritical5`** (5-ω̄-critical, order
 **`question_5_9_fails_at_k5`** (every proper subtournament has `ω̄ ≤ 4`, so
 no bound `ℓ(5)` exists). All exit theorems `Print Assumptions`-clean.
 
+**K34 (M13–M17) — done (2026-06-12): the unified k = 3, 4, 5 theorem.**
+`conjecture_5_10_at_345` (`applications/unified.v`): **for every
+k ∈ {3, 4, 5} there are infinitely many k-ω̄-critical tournaments** — the
+three families over the same circulant platform: ACₙ (k = 3, already M4),
+**ACₙ[C₃] (k = 4, new: `applications/k4/`)** and ACₙ[ACₙ] (k = 5).
+The k = 4 case (`omegabar_T4 = 4`, `omegabar_T4_del = 3` ∀v,
+`T4_kcritical4`, order 3n) runs on the merged-class order kv for the
+value bound (`k4_value`) and the five-band d_then_c order kd for the
+deletion bound (`k4_del` — the (2,2)-core: 1+δ ∈ g and m+1+δ ∈ g are
+incompatible for δ ∈ g). Question 5.9 now fails at *each* k ∈ {3,4,5},
+all through the new general `kcritical_proper_sub`. D12 dividends:
+`card_classes`/`card_classes_inj` (prelude), the shared ACₙ band kit
+(`applications/acn_bands.v`, relocated from k5), `C3_vertex_transitive`.
+All 13 new exits `Print Assumptions`-clean; plan in `docs/PLAN_K34.md`,
+dossier in `docs/k34_dossier.md`, oracle `scripts/k4_oracle.py`
+(114 tests).
+
 **CK3 (M7–M12) — done (2026-06-11): the δ = 3 path theorem.**
 `ck_conj1_delta3`: every nonempty oriented digraph with minimum out-degree
 ≥ 3 contains a directed simple path of length 6 — the δ = 3 case of
@@ -84,6 +101,7 @@ self-contained proof dossier in `docs/ck3_dossier.md`.
 | General theorems | `substitution` ✅, `transitive` ✅ | M3 |
 | Application (k=5) | `applications/k5/{acn_arc_facts,acn_base,k5_lower,in_neighbourhood,cells,obstructions,coverage,k5_upper,main}` ✅ | M4–M6 |
 | Application (CK3) | `applications/ck3/{lemma7,ck3_main}` ✅ + `core/{oriented,dipath}` ✅, `invariants/strong` ✅ | M7–M12 |
+| Application (k=4) + unified | `applications/k4/{k4_lower,k4_value,k4_del,k4_main}` ✅, `applications/{acn_bands,unified}` ✅ | M13–M17 |
 
 ## Build
 

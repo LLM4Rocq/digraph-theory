@@ -5,6 +5,43 @@ The format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added — K34 M13–M17 (the unified k = 3, 4, 5 theorem), 2026-06-12
+- **`applications/unified.v` — the headline (`conjecture_5_10_at_345`):
+  for every k ∈ {3, 4, 5} there are infinitely many k-ω̄-critical
+  tournaments** (Aboulker–Aubian–Charbit–Lopes Conjecture 5.10 at each
+  humanly-known k), with the k = 3 packaging (`conjecture_5_10_at_k3`,
+  `question_5_9_fails_at_k3` from M4's `AC_kcritical3`).
+- **`applications/k4/` — the new k = 4 family ACₙ[C₃]** (n = 2m+1, m ≥ 3,
+  order 3n), formalizing `docs/k34_dossier.md`:
+  - `k4_lower.v`: ω̄(T4) ≥ 4 (substitution bound) and ω̄(T4 − (0,0)) ≥ 3
+    (the constant-h copy of ACₙ avoids the deleted vertex);
+  - `k4_value.v`: ω̄(T4) ≤ 4 via the merged-class order
+    kv = (κ·n + t)·3 + h, κ = band + dband — one clique vertex per
+    (band, dband) sub-band, occupancy capped by the V5 forced pair
+    {(m,0),(0,i)} and the V6 four-class chain; **`omegabar_T4` = 4**;
+  - `k4_del.v`: ω̄(T4 − (0,0)) ≤ 3 via the five-band d_then_c order
+    kd = (σ·n + t)·3 + h — per-band injectivity (D1) plus three
+    exclusions, including the D3e core: for δ = s − s' ∈ g, 1+δ ∈ g and
+    m+1+δ ∈ g (mod n) are incompatible; **`omegabar_T4del0` = 3**;
+  - `k4_main.v`: `T4_vertex_transitive`, `omegabar_T4_del` (all v),
+    **`T4_kcritical4`**, `card_T4` = 3n, `conjecture_5_10_at_k4`,
+    `question_5_9_fails_at_k4`.
+- General additions (D12): **`kcritical_proper_sub`** (`critical.v`: in a
+  k-critical tournament every proper subtournament has ω̄ ≤ k−1 — the
+  Question-5.9 mechanism, used by all three k's), **`card_classes`** and
+  **`card_classes_inj`** (`prelude.v`: partition counting by a bounded
+  class function, clique-occupancy form), **`C3_vertex_transitive`**
+  (`circulant.v`), and **`applications/acn_bands.v`** — the radix-key
+  lemmas and the ACₙ band kit moved verbatim out of `k5/cells.v` (D13)
+  and now shared by the k = 4 and k = 5 applications.
+- `docs/PLAN_K34.md` + `docs/k34_dossier.md` (item-ID dossier, single
+  source of truth), `scripts/k4_oracle.py` + `scripts/test_k4_oracle.py`
+  (114 tests: explicit-order upper bounds, SAT lower bounds under two
+  solvers, exact factor values, the CRT isomorphism of AC₇[C₃] with the
+  independently certified circulant(21)).
+- All 13 new exit theorems are axiom-free
+  (`Print Assumptions`: closed under the global context).
+
 ### Added — CK3 M8–M12 (the δ = 3 path theorem), 2026-06-11
 - **`applications/ck3/ck3_main.v` — the theorem (`ck_conj1_delta3`): every
   nonempty oriented digraph with min out-degree ≥ 3 contains a directed

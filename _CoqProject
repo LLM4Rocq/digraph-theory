@@ -49,3 +49,7 @@ theories/applications/ck3/ck3_main.v
 theories/applications/k4/k4_lower.v
 theories/applications/k4/k4_value.v
 theories/applications/k4/k4_del.v
+theories/applications/k4/k4_main.v
+
+# --- the unified k=3,4,5 theorem (M17) ---
+theories/applications/unified.v

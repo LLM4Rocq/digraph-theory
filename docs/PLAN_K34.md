@@ -13,8 +13,13 @@ Combined with the k = 5 theorem already formalized (M0–M6), the headline
 becomes the unified statement: **for every k ∈ {3,4,5} there are
 infinitely many k-ω̄-critical tournaments.**
 
-**Status:** v1.1 (2026-06-11) — decisions D13–D15 RESOLVED (recommended
-options, Marc's sign-off). Milestones **M13–M17**, same repository.
+**Status:** v1.2 (2026-06-12) — **ALL MILESTONES M13–M17 COMPLETE.**
+Exits: `conjecture_5_10_at_345` (`applications/unified.v`),
+`T4_kcritical4`, `conjecture_5_10_at_k4`, `question_5_9_fails_at_k4`
+(`applications/k4/k4_main.v`), `conjecture_5_10_at_k3`,
+`question_5_9_fails_at_k3` (unified.v), all axiom-free. General
+dividends landed: `kcritical_proper_sub`, `card_classes(_inj)`,
+`acn_bands.v`, `C3_vertex_transitive`. Oracle: 114 tests green.
 
 **Standing principle (D12, Marc's instruction): generality first.** Every
 new statement at the most general level at which it is true; shared
