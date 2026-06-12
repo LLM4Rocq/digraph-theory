@@ -1,95 +1,96 @@
 {
-  "_comment": "Curation map for the statement-audit site (PLAN_WEB M18/M21). Every Digraph constant appearing in a catalog result's statement closure must map to a def-block; blocks are written once (M19 chapters) and reused by every result page. CI fails on unmapped constants.",
+  "_comment": "Curation map for the statement-audit site (PLAN_WEB M18/M21). Every Digraph constant appearing in a catalog result's statement closure must map to a def-block; blocks are written once (M19 chapters) and reused by every result page. CI fails on unmapped constants. 'quote' is a list of declarations to display verbatim (extracted from source by scripts/extract_quotes.py); entries are names in the block's file, or {file, name} pairs.",
   "blocks": {
     "def:arc": {
       "title": "Digraphs and arcs (u --> v)",
       "file": "theories/core/digraph.v",
-      "quote": "arc"
+      "quote": "HB"
     },
     "def:oriented": {
       "title": "Oriented digraphs (irreflexive + asymmetric)",
       "file": "theories/core/oriented.v",
-      "quote": "orientedDigraph"
+      "quote": "HB"
     },
     "def:outdeg": {
       "title": "Out-degree",
       "file": "theories/core/oriented.v",
-      "quote": "outdeg"
+      "quote": ["outdeg"]
     },
     "def:tournament": {
       "title": "Tournaments (irreflexive + total)",
       "file": "theories/core/tournament.v",
-      "quote": "tournament"
+      "quote": "HB"
     },
     "def:transb": {
       "title": "Transitive tournaments",
       "file": "theories/core/tournament.v",
-      "quote": "transb"
+      "quote": ["transb"]
     },
     "def:C3": {
       "title": "The directed triangle C3",
       "file": "theories/core/tournament.v",
-      "quote": "C3"
+      "quote": ["C3", "arcC3E"]
     },
     "def:ltp": {
-      "title": "Vertex orders as permutations (ltp)",
+      "title": "Vertex orders as permutations (ltp, realize)",
       "file": "theories/core/order.v",
-      "quote": "ltp"
+      "quote": ["ltp", "realize", "ltp_realizeE"]
     },
     "def:backedge": {
       "title": "The backedge graph of an ordered tournament",
       "file": "theories/core/order.v",
-      "quote": "backedge"
+      "quote": ["backedge_rel", "backedge", "backedgeE"]
     },
     "def:omegabar": {
       "title": "The tournament clique number omegabar",
       "file": "theories/invariants/omegabar.v",
-      "quote": "omegabar"
+      "quote": ["omegab_at", "omegabar"]
     },
     "def:kcritical": {
       "title": "k-omegabar-critical tournaments",
       "file": "theories/invariants/critical.v",
-      "quote": "kcritical"
+      "quote": ["kcritical"]
     },
     "def:subdel": {
       "title": "Subtournaments and vertex deletion",
       "file": "theories/core/tournament.v",
-      "quote": "sub_tournament"
+      "quote": ["sub_tournament", "del_tournament",
+                {"file": "theories/core/digraph.v", "name": "sub_arcE"}]
     },
     "def:domination": {
       "title": "Directed domination",
       "file": "theories/invariants/domination.v",
-      "quote": "domnum"
+      "quote": ["dominatesb", "domnum"]
     },
     "def:aut": {
       "title": "Automorphisms of a digraph",
       "file": "theories/constructions/automorphism.v",
-      "quote": "autb"
+      "quote": ["autb", "dgaut"]
     },
     "def:vt": {
       "title": "Vertex-transitivity",
       "file": "theories/constructions/automorphism.v",
-      "quote": "vertex_transitiveb"
+      "quote": ["vertex_transitiveb"]
     },
     "def:dgiso": {
       "title": "Digraph isomorphism",
       "file": "theories/core/digraph.v",
-      "quote": "dgiso"
+      "quote": ["dgiso"]
     },
     "def:lexprod": {
       "title": "Lexicographic substitution S[H]",
       "file": "theories/constructions/product.v",
-      "quote": "lexprod"
+      "quote": ["lexprod", "lexprod_arcE", "lexprod_tournament"]
     },
     "def:cayley": {
       "title": "Cayley digraphs",
       "file": "theories/constructions/cayley.v",
-      "quote": "cayley"
+      "quote": ["cayley", "cayley_arcE"]
     },
     "def:AC": {
       "title": "The circulant tournament ACn (n = 2m+1)",
       "file": "theories/constructions/circulant.v",
-      "quote": "AC"
+      "quote": ["ACset", "AC", "AC_arcE"]
     },
     "def:T4family": {
       "title": "The k = 4 family ACn[C3]",
@@ -104,17 +105,17 @@
     "def:dipath": {
       "title": "Directed simple paths",
       "file": "theories/core/dipath.v",
-      "quote": "dipath"
+      "quote": ["dipath"]
     },
     "def:ell": {
       "title": "The longest-dipath length ell(D)",
       "file": "theories/core/dipath.v",
-      "quote": "ell"
+      "quote": ["has_dipath", "ell"]
     },
     "def:strong": {
       "title": "Strong connectivity",
       "file": "theories/invariants/strong.v",
-      "quote": "strongb"
+      "quote": ["strongb"]
     }
   },
   "map": {

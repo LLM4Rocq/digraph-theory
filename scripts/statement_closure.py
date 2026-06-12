@@ -159,9 +159,14 @@ class GlobFile:
             m = re.compile(rb"\bProof\b|:=").search(self.src, be)
             end = m.start() if m else len(self.src)
             return bs, end, kind
-        # Definition-like: full body, up to the next declaration offset.
+        # Definition-like: the enclosing Rocq sentence — up to the first
+        # `.` followed by whitespace (`.+1`, `.-1`, `%N].` are safe: the
+        # dot there is not followed by whitespace), capped at the next
+        # recorded declaration.
         nexts = sorted(b for (_, b, _) in self.decls.values() if b > bs)
-        end = nexts[0] if nexts else len(self.src)
+        cap = nexts[0] if nexts else len(self.src)
+        m = re.compile(rb"\.(?=\s)").search(self.src, be, cap)
+        end = m.end() if m else cap
         return bs, end, kind
 
     def refs_in(self, lo: int, hi: int):
@@ -273,19 +278,22 @@ def check(out: dict) -> int:
                 bad += 1
     # blocks pointing at quotes that no longer exist in the source
     for bid, b in blocks.items():
-        if b.get("quote") is None:
+        if b.get("quote") in (None, "HB"):
             continue
-        src = (ROOT / b["file"]).read_text(encoding="utf-8")
-        q = re.escape(b["quote"])
-        decl = re.search(
-            rf"^(Definition|Notation|Lemma|Theorem|Fact|Local Notation)"
-            rf"\s+{q}\b", src, re.M)
-        hb_short = re.search(rf'short\(type="{q}"\)', src)
-        hb_field = re.search(rf"\{{\s*{q}\s*:", src)
-        if not (decl or hb_short or hb_field):
-            print(f"STALE QUOTE: {bid} expects a declaration "
-                  f"{b['quote']!r} in {b['file']}")
-            bad += 1
+        for q in b["quote"]:
+            qfile = q["file"] if isinstance(q, dict) else b["file"]
+            qname = q["name"] if isinstance(q, dict) else q
+            src = (ROOT / qfile).read_text(encoding="utf-8")
+            qq = re.escape(qname)
+            decl = re.search(
+                rf"^(Definition|Notation|Lemma|Theorem|Fact"
+                rf"|Local Notation)\s+{qq}\b", src, re.M)
+            hb_short = re.search(rf'short\(type="{qq}"\)', src)
+            hb_field = re.search(rf"\{{\s*{qq}\s*:", src)
+            if not (decl or hb_short or hb_field):
+                print(f"STALE QUOTE: {bid} expects a declaration "
+                      f"{qname!r} in {qfile}")
+                bad += 1
     return bad
 
 
